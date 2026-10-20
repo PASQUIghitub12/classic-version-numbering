@@ -1,0 +1,51 @@
+plugins {
+    id 'net.neoforged.moddev' version "${moddev_version}"
+}
+
+base {
+    archivesName = "${mod_id}-neoforge"
+}
+
+repositories {
+    mavenCentral()
+}
+
+// The common mapping logic and the (loader-agnostic, Mojmap) mixins are compiled
+// directly into each loader module. This keeps the published jars self-contained
+// without shading or jar-in-jar packaging.
+sourceSets {
+    main {
+        java {
+            srcDir '../common/src/main/java'
+            srcDir '../shared-mixins/src/main/java'
+        }
+        resources {
+            srcDir '../shared-mixins/src/main/resources'
+        }
+    }
+}
+
+neoForge {
+    version = project.neo_version
+
+    runs {
+        client {
+            client()
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+processResources {
+    def version = project.mod_version
+    inputs.property 'version', version
+
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand 'mod_version': version
+    }
+}

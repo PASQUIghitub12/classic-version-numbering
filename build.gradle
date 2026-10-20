@@ -1,0 +1,30 @@
+// Root build script: shared configuration only.
+// Each loader module applies its own toolchain (fabric-loom / ModDevGradle).
+
+subprojects {
+    group = findProperty('group') ?: 'dev.classicversion'
+    version = findProperty('mod_version') ?: '1.0.0'
+
+    // The `common` module applies java-library itself; the loader modules get
+    // the java plugin from their respective toolchain plugins.
+    if (name == 'common') {
+        apply plugin: 'java-library'
+    } else {
+        apply plugin: 'java'
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(Integer.parseInt(findProperty('java_version') as String))
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = Integer.parseInt(findProperty('java_version') as String)
+    }
+
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
+    }
+}

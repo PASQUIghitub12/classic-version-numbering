@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+
+[[mods]]
+modId = "classic_version_numbering"
+version = "${mod_version}"
+displayName = "Classic Version Numbering"
+authors = "Classic Version Numbering contributors"
+description = '''
+Displays classic-style Minecraft version numbers (1.22, 1.23, ...) instead of the
+year-based 26.x / 27.x identifiers in user-facing screens.
+The real game version and network compatibility are unchanged.
+'''
+logoFile = "icon.png"
+
+[[mixins]]
+config = "classic-version-numbering.mixins.json"
+
+[features.classic_version_numbering]
+javaVersion = "[25,)"
+
+[[dependencies.classic_version_numbering]]
+modId = "neoforge"
+type = "required"
+versionRange = "[26.3.0.92,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.classic_version_numbering]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.3,26.4)"
+ordering = "NONE"
+side = "CLIENT"

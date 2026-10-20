@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        maven {
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/releases'
+        }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+plugins {
+    // Automatically downloads the JDK toolchains required by the sub-projects
+    // (Java 25 is required to compile against Minecraft 26.3).
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+rootProject.name = 'classic-version-numbering'
+
+include 'common'
+include 'fabric'
+include 'neoforge'

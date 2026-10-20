@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "dev.classicversion.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "DebugEntryVersionMixin",
+    "MinecraftWindowTitleMixin",
+    "TitleScreenMixin",
+    "WorldOpenFlowsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

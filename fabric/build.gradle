@@ -1,0 +1,42 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+base {
+    archivesName = "${mod_id}-fabric"
+}
+
+repositories {
+    mavenCentral()
+}
+
+// The common mapping logic and the (loader-agnostic, Mojmap) mixins are compiled
+// directly into each loader module. This keeps the published jars self-contained
+// without shading or jar-in-jar packaging.
+sourceSets {
+    main {
+        java {
+            srcDir '../common/src/main/java'
+            srcDir '../shared-mixins/src/main/java'
+        }
+        resources {
+            srcDir '../shared-mixins/src/main/resources'
+        }
+    }
+}
+
+dependencies {
+    // Minecraft 26.x ships unobfuscated, so no mappings dependency is required
+    // (and Loom rejects Mojang mappings in a non-obfuscated environment).
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+}
+
+processResources {
+    def version = project.version
+    inputs.property 'version', version
+
+    filesMatching('fabric.mod.json') {
+        expand 'version': version
+    }
+}

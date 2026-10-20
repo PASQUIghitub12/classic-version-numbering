@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "classic_version_numbering",
+  "version": "${version}",
+  "name": "Classic Version Numbering",
+  "description": "Displays classic-style Minecraft version numbers (1.22, 1.23, ...) instead of the year-based 26.x / 27.x identifiers in user-facing screens. The real game version and network compatibility are unchanged.",
+  "authors": [
+    "Classic Version Numbering contributors"
+  ],
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.classicversion.fabric.ClassicVersionFabricClient"
+    ]
+  },
+  "mixins": [
+    "classic-version-numbering.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "minecraft": "26.3",
+    "java": ">=25"
+  }
+}

@@ -1,0 +1,25 @@
+// The `common` module holds the loader-independent version-mapping logic.
+// It intentionally has no Minecraft or loader dependencies so it can be
+// unit-tested on a plain JVM. The loader modules compile these same sources
+// directly (see their build.gradle files), so no shading or jar-in-jar
+// packaging is required.
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Gson is provided by Minecraft itself at runtime; compile-only usage here.
+    compileOnly "com.google.code.gson:gson:${project.gson_version}"
+
+    testImplementation "com.google.code.gson:gson:${project.gson_version}"
+    testImplementation platform("org.junit:junit-bom:${project.junit_version}")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test', Test) {
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
